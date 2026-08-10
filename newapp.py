@@ -272,4 +272,3 @@ with col_side:
         st.info(l['reason_text_priority'], icon="💡")
     else:
         st.info(l['reason_text_normal'], icon="💡")
-```eof
