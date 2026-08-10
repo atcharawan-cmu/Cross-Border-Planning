@@ -12,16 +12,35 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Light Theme & Cleaner Look
+# Custom CSS for Light Theme, Cleaner Look & LARGER TEXT
 st.markdown('''
     <style>
+        /* --- เพิ่มขนาดตัวหนังสือทั่วไป --- */
+        p, .stMarkdown p, .stText, label, .stAlert p { 
+            font-size: 18px !important; 
+        }
+        
+        /* --- เพิ่มขนาดตัวหนังสือบนปุ่ม --- */
+        .stButton>button { 
+            font-size: 18px !important; 
+        }
+
+        /* Main background */
         .stApp { background-color: #F8F9FA; color: #212529; }
         [data-testid="stSidebar"] { background-color: #FFFFFF; border-right: 1px solid #E9ECEF; }
-        [data-testid="stMetricValue"] { color: #0056B3; font-weight: 700; }
-        [data-testid="stMetricLabel"] { color: #495057; font-size: 1.1rem; font-weight: 500; }
+        
+        /* Metric Cards (ตัวชี้วัด) */
+        [data-testid="stMetricValue"] { color: #0056B3; font-weight: 700; font-size: 2.2rem !important; }
+        [data-testid="stMetricLabel"] { color: #495057; font-size: 1.2rem !important; font-weight: 500; }
         [data-testid="metric-container"] { background-color: #FFFFFF; padding: 15px; border-radius: 8px; border: 1px solid #E9ECEF; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        
+        /* Headers */
         h1, h2, h3, h4 { color: #212529; font-weight: 600; }
+        
+        /* Info Box */
         .stAlert { background-color: #E3F2FD; color: #0D47A1; border-left: 5px solid #1976D2; }
+        
+        /* Primary Button */
         .stButton>button[kind="primary"] { background-color: #28A745; color: white; border: none; font-weight: 600; }
         .stButton>button[kind="primary"]:hover { background-color: #218838; }
     </style>
