@@ -1,0 +1,31 @@
+Order_ID,Origin,Destination,Weight_kg,Volume_cbm,Cargo_Type,Delivery_Deadline,Urgency
+ORD-001,Thailand (Lamphun),Malaysia (Kuala Lumpur),1200,4.5,Electronics,8/14/2026 12:00,Normal
+ORD-002,Thailand (Lamphun),Malaysia (Penang),850,3,Textiles,8/13/2026 18:00,Normal
+ORD-003,Thailand (Lamphun),Malaysia (Kuala Lumpur),2100,6.2,Food,8/14/2026 10:00,Normal
+ORD-004,Thailand (Lamphun),Malaysia (Penang),500,2.1,Chemicals,8/14/2026 15:00,Normal
+ORD-005,Thailand (Lamphun),Malaysia (Kuala Lumpur),150,0.8,Electronics,8/12/2026 9:00,Urgent
+ORD-006,Thailand (Lamphun),Malaysia (Penang),1800,5.5,Food,8/15/2026 12:00,Normal
+ORD-007,Thailand (Lamphun),Malaysia (Kuala Lumpur),2500,8,Chemicals,8/15/2026 14:00,Normal
+ORD-008,Thailand (Lamphun),Malaysia (Penang),900,3.5,Textiles,8/13/2026 10:00,Normal
+ORD-009,Thailand (Lamphun),Laos (Vientiane),1100,4,Food,8/13/2026 16:00,Normal
+ORD-010,Thailand (Lamphun),Laos (Vientiane),400,1.5,Chemicals,8/13/2026 14:00,Normal
+ORD-011,Thailand (Lamphun),Laos (Vientiane),1600,5,Electronics,8/14/2026 12:00,Normal
+ORD-012,Thailand (Lamphun),Laos (Vientiane),2200,7.5,Food,8/14/2026 9:00,Normal
+ORD-013,Thailand (Lamphun),Laos (Vientiane),300,1,Electronics,8/12/2026 18:00,Urgent
+ORD-014,Thailand (Lamphun),Laos (Vientiane),1400,4.8,Textiles,8/15/2026 10:00,Normal
+ORD-015,Thailand (Lamphun),Laos (Vientiane),1900,6,Chemicals,8/15/2026 16:00,Normal
+ORD-016,Thailand (Lamphun),Vietnam (Hanoi),2000,6.5,Textiles,8/16/2026 12:00,Normal
+ORD-017,Thailand (Lamphun),Vietnam (Hanoi),1300,4.2,Electronics,8/16/2026 10:00,Normal
+ORD-018,Thailand (Lamphun),Vietnam (Ho Chi Minh),1700,5.8,Food,8/15/2026 14:00,Normal
+ORD-019,Thailand (Lamphun),Vietnam (Ho Chi Minh),2400,8.2,Chemicals,8/15/2026 12:00,Normal
+ORD-020,Thailand (Lamphun),Vietnam (Hanoi),600,2.5,Food,8/16/2026 15:00,Normal
+ORD-021,Thailand (Lamphun),Vietnam (Ho Chi Minh),950,3.2,Textiles,8/14/2026 8:00,Urgent
+ORD-022,Thailand (Lamphun),Vietnam (Hanoi),1850,5.9,Electronics,8/17/2026 12:00,Normal
+ORD-023,Thailand (Lamphun),China (Kunming),2100,7,Chemicals,8/18/2026 10:00,Normal
+ORD-024,Thailand (Lamphun),China (Kunming),1450,4.5,Textiles,8/18/2026 14:00,Normal
+ORD-025,Thailand (Lamphun),China (Guangzhou),1200,3.8,Food,8/19/2026 12:00,Normal
+ORD-026,Thailand (Lamphun),China (Guangzhou),2600,8.5,Electronics,8/19/2026 9:00,Normal
+ORD-027,Thailand (Lamphun),China (Kunming),800,2.8,Food,8/17/2026 16:00,Urgent
+ORD-028,Thailand (Lamphun),China (Guangzhou),1750,5.4,Textiles,8/20/2026 10:00,Normal
+ORD-029,Thailand (Lamphun),China (Kunming),2300,7.6,Chemicals,8/19/2026 15:00,Normal
+ORD-030,Thailand (Lamphun),China (Guangzhou),1050,3.6,Electronics,8/20/2026 12:00,Normal
