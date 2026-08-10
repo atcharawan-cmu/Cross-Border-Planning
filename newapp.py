@@ -4,28 +4,51 @@ import numpy as np
 import plotly.express as px
 from datetime import datetime
 
-# --- 1. APP CONFIGURATION & THEME ---
-st.set_page_config(page_title="BorderLoad AI Dashboard", layout="wide", initial_sidebar_state="expanded")
+# --- 1. APP CONFIGURATION & MODERN THEME ---
+st.set_page_config(
+    page_title="BorderLoad AI Dashboard", 
+    layout="wide", 
+    initial_sidebar_state="expanded"
+)
 
+# Custom CSS แรงบันดาลใจจาก Modern Logistics Dashboard (Clean Cards & Soft UI)
 st.markdown('''
     <style>
-        p, .stMarkdown p, .stText, label, .stAlert p { font-size: 17px !important; }
-        .stButton>button { font-size: 17px !important; }
-        .stApp { background-color: #F8F9FA; color: #212529; }
-        [data-testid="stSidebar"] { background-color: #FFFFFF; border-right: 1px solid #E9ECEF; }
-        [data-testid="stMetricValue"] { color: #0056B3; font-weight: 700; font-size: 2.2rem !important; }
-        [data-testid="stMetricLabel"] { color: #495057; font-size: 1.1rem !important; font-weight: 500; }
-        [data-testid="metric-container"] { background-color: #FFFFFF; padding: 15px; border-radius: 8px; border: 1px solid #E9ECEF; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        h1, h2, h3, h4 { color: #212529; font-weight: 600; }
-        .stAlert { background-color: #E3F2FD; color: #0D47A1; border-left: 5px solid #1976D2; }
-        .stButton>button[kind="primary"] { background-color: #28A745; color: white; border: none; font-weight: 600; }
-        .stButton>button[kind="primary"]:hover { background-color: #218838; }
-        button[data-baseweb="tab"] { font-size: 18px !important; font-weight: 600 !important; }
+        /* Global Style & Font */
+        p, .stMarkdown p, .stText, label, .stAlert p { font-size: 16px !important; color: #334155; }
+        .stButton>button { font-size: 16px !important; border-radius: 8px !important; font-weight: 600 !important; }
+        .stApp { background-color: #F4F6F9; color: #1E293B; }
+        
+        /* Sidebar Styling */
+        [data-testid="stSidebar"] { background-color: #FFFFFF; border-right: 1px solid #E2E8F0; }
+        
+        /* Metric Cards Styling */
+        [data-testid="stMetricValue"] { color: #2563EB; font-weight: 700; font-size: 2rem !important; }
+        [data-testid="stMetricLabel"] { color: #64748B; font-size: 1.05rem !important; font-weight: 600; }
+        [data-testid="metric-container"] { 
+            background-color: #FFFFFF; 
+            padding: 18px; 
+            border-radius: 12px; 
+            border: 1px solid #E2E8F0; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); 
+        }
+        
+        /* Headers */
+        h1, h2, h3, h4 { color: #0F172A; font-weight: 700; font-family: sans-serif; }
+        
+        /* Info & Alert Box */
+        .stAlert { background-color: #EFF6FF; color: #1E40AF; border-left: 5px solid #3B82F6; border-radius: 8px; }
+        
+        /* Primary Button */
+        .stButton>button[kind="primary"] { background-color: #10B981; color: white; border: none; }
+        .stButton>button[kind="primary"]:hover { background-color: #059669; }
+
+        /* Tabs Styling */
+        button[data-baseweb="tab"] { font-size: 18px !important; font-weight: 600 !important; color: #475569 !important; }
     </style>
 ''', unsafe_allow_html=True)
 
-# --- 2. SESSION STATE (ระบบความจำ) ---
-# บันทึกข้อมูลรถและคนขับให้แก้ได้ (Human Override)
+# --- 2. SESSION STATE (ระบบความจำสถานะ) ---
 if 'trip_assignments' not in st.session_state:
     st.session_state.trip_assignments = {
         't1_truck': 'TH-001 (Capacity 5T)', 't1_driver': 'Somchai', 't1_orders': 0,
@@ -116,7 +139,6 @@ with st.sidebar:
         submitted = st.form_submit_button(l['add_btn'], use_container_width=True)
         
         if submitted:
-            # AI แยกแยะออเดอร์ตามปลายทางอย่างสมเหตุสมผล
             if 'Vientiane' in o_dest or 'เวียงจันทน์' in o_dest:
                 st.session_state.trip_assignments['t1_orders'] += 1
                 assigned_trip = "Pending AI Assignment (Trip 1)"
@@ -167,20 +189,18 @@ with tab1:
             st.write(f"**{l['eta']}:** 2026-08-16 14:00 PM")
             
         status_data = pd.DataFrame({'Status': ['On-Time', 'Delayed', 'Critical'], 'Count': [ai_metrics['ontime'] + total_new_orders, 100 - ai_metrics['ontime'] - 2, 2]})
-        fig = px.bar(status_data, x='Status', y='Count', color='Status', color_discrete_map={'On-Time':'#28A745', 'Delayed':'#FFC107', 'Critical':'#DC3545'})
+        fig = px.bar(status_data, x='Status', y='Count', color='Status', color_discrete_map={'On-Time':'#10B981', 'Delayed':'#F59E0B', 'Critical':'#EF4444'})
         fig.update_layout(height=250, margin=dict(l=0, r=0, t=10, b=0), plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', xaxis_title=None, yaxis_title="Orders")
         st.plotly_chart(fig, use_container_width=True)
 
     with col_side:
         st.subheader(l['action'])
         
-        # ปุ่มอนุมัติแผน
         if st.button(l['accept'], use_container_width=True, type="primary"):
             st.session_state.orders_df.loc[st.session_state.orders_df['Status'].str.contains('Pending'), 'Status'] = 'Assigned (Approved)'
             st.session_state.edit_mode = False
             st.rerun()
             
-        # ปุ่มแก้ไข (Human Override - Dropdown Menu)
         if st.button(l['modify'], use_container_width=True):
             st.session_state.edit_mode = not st.session_state.edit_mode
             
@@ -204,7 +224,6 @@ with tab1:
                         st.session_state.edit_mode = False
                         st.rerun()
 
-        # ปุ่มปฏิเสธ
         if st.button(l['reject'], use_container_width=True):
             st.session_state.trip_assignments['t1_orders'] = 0
             st.session_state.trip_assignments['t2_orders'] = 0
