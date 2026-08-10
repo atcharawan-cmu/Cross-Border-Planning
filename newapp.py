@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -16,59 +15,15 @@ st.set_page_config(
 # Custom CSS for Light Theme & Cleaner Look
 st.markdown('''
     <style>
-        /* Main background */
-        .stApp {
-            background-color: #F8F9FA;
-            color: #212529;
-        }
-        
-        /* Sidebar background */
-        [data-testid="stSidebar"] {
-            background-color: #FFFFFF;
-            border-right: 1px solid #E9ECEF;
-        }
-        
-        /* Metric Cards */
-        [data-testid="stMetricValue"] {
-            color: #0056B3;
-            font-weight: 700;
-        }
-        [data-testid="stMetricLabel"] {
-            color: #495057;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        [data-testid="metric-container"] {
-            background-color: #FFFFFF;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #E9ECEF;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        
-        /* Headers */
-        h1, h2, h3 {
-            color: #212529;
-            font-weight: 600;
-        }
-        
-        /* Info/Reasoning Box */
-        .stAlert {
-            background-color: #E3F2FD;
-            color: #0D47A1;
-            border-left: 5px solid #1976D2;
-        }
-        
-        /* Buttons */
-        .stButton>button[kind="primary"] {
-            background-color: #28A745;
-            color: white;
-            border: none;
-            font-weight: 600;
-        }
-        .stButton>button[kind="primary"]:hover {
-            background-color: #218838;
-        }
+        .stApp { background-color: #F8F9FA; color: #212529; }
+        [data-testid="stSidebar"] { background-color: #FFFFFF; border-right: 1px solid #E9ECEF; }
+        [data-testid="stMetricValue"] { color: #0056B3; font-weight: 700; }
+        [data-testid="stMetricLabel"] { color: #495057; font-size: 1.1rem; font-weight: 500; }
+        [data-testid="metric-container"] { background-color: #FFFFFF; padding: 15px; border-radius: 8px; border: 1px solid #E9ECEF; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        h1, h2, h3, h4 { color: #212529; font-weight: 600; }
+        .stAlert { background-color: #E3F2FD; color: #0D47A1; border-left: 5px solid #1976D2; }
+        .stButton>button[kind="primary"] { background-color: #28A745; color: white; border: none; font-weight: 600; }
+        .stButton>button[kind="primary"]:hover { background-color: #218838; }
     </style>
 ''', unsafe_allow_html=True)
 
@@ -110,7 +65,11 @@ LANG = {
         'reason_text_priority': "Priority shifted to On-Time Delivery. AI deployed additional trucks to ensure faster transit, reducing truck utilization to 85%.",
         'warning': '⚠️ Alerts',
         'warn_msg': 'Urgent orders detected. Priority adjustment recommended.',
-        'chart_title': 'Estimated Delivery Status'
+        'chart_title': 'Estimated Delivery Status',
+        'trip1_dest': 'Vientiane',
+        'trip1_cargo': '3 Consolidated Orders (Electronics, Food)',
+        'trip2_dest': 'Kuala Lumpur',
+        'trip2_cargo': '5 Consolidated Orders (*Chemicals isolated*)'
     },
     'TH': {
         'title': '🚚 BorderLoad AI: ระบบวางแผนและจัดกลุ่มขนส่งข้ามแดน',
@@ -147,7 +106,11 @@ LANG = {
         'reason_text_priority': "เปลี่ยนเป้าหมายเป็น 'เน้นส่งตรงเวลา' AI เพิ่มจำนวนรถเพื่อให้ส่งได้เร็วขึ้น ทำให้อัตราการบรรทุกลดลงเหลือ 85%",
         'warning': '⚠️ การแจ้งเตือน',
         'warn_msg': 'พบออเดอร์เร่งด่วน แนะนำให้ปรับเป้าหมายเป็นเน้นส่งตรงเวลา',
-        'chart_title': 'สถานะการส่งมอบโดยประมาณ'
+        'chart_title': 'สถานะการส่งมอบโดยประมาณ',
+        'trip1_dest': 'เวียงจันทน์',
+        'trip1_cargo': 'รวม 3 ออเดอร์ (อิเล็กทรอนิกส์, อาหาร)',
+        'trip2_dest': 'กัวลาลัมเปอร์',
+        'trip2_cargo': 'รวม 5 ออเดอร์ (*แยกสินค้าเคมีออกจากกลุ่ม*)'
     }
 }
 
@@ -227,15 +190,15 @@ with col_main:
     st.subheader(l['ai_plan'])
     
     with st.container(border=True):
-        st.markdown(f"#### 📦 Trip 1: Lamphun ➡️ {l['dest'].split(' ')[0] if lang_choice=='EN' else 'เวียงจันทน์'}")
+        st.markdown(f"#### 📦 Trip 1: Lamphun ➡️ {l['trip1_dest']}")
         st.write(f"**{l['truck']}:** TH-001 (Capacity 5T) &nbsp;&nbsp;|&nbsp;&nbsp; **{l['driver']}:** Somchai")
-        st.write(f"**Cargo:** 3 Consolidated Orders (Electronics, Food)")
+        st.write(f"**Cargo:** {l['trip1_cargo']}")
         st.write(f"**{l['eta']}:** 2026-08-14 09:30 AM")
     
     with st.container(border=True):
-        st.markdown(f"#### 📦 Trip 2: Lamphun ➡️ {l['dest'].split(' ')[0] if lang_choice=='EN' else 'กัวลาลัมเปอร์'}")
+        st.markdown(f"#### 📦 Trip 2: Lamphun ➡️ {l['trip2_dest']}")
         st.write(f"**{l['truck']}:** TH-002 (Capacity 8T) &nbsp;&nbsp;|&nbsp;&nbsp; **{l['driver']}:** Wichai")
-        st.write(f"**Cargo:** 5 Consolidated Orders (*Chemicals isolated*)")
+        st.write(f"**Cargo:** {l['trip2_cargo']}")
         st.write(f"**{l['eta']}:** 2026-08-16 14:00 PM")
     
     st.subheader(l['chart_title'])
@@ -244,7 +207,7 @@ with col_main:
         'Count': [ai_metrics['ontime'], 100 - ai_metrics['ontime'] - 2, 2]
     })
     
-    # Updated chart for light theme
+    # Chart
     fig = px.bar(status_data, x='Status', y='Count', color='Status', 
                  color_discrete_map={'On-Time':'#28A745', 'Delayed':'#FFC107', 'Critical':'#DC3545'})
     fig.update_layout(
